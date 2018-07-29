@@ -1,35 +1,23 @@
+require "pry"
+
 def reformat_languages(languages)
   newLangObj = {}
-  get_style = []
-  language = ''
-  type = ''
-  type_value = ''
 
   languages.each do |style_name, style_hash|
-
-    style_hash.each do |language_name, language_hash|
-      language = language_name
-
-      if language_name == :javascript
-        get_style = [:oo, :functional]
-      elsif language_name == :clojure || language_name == :erlang || language_name == :scala
-        get_style = [:functional]
-      else
-        get_style = [:oo]
-      end
-
-      language_hash.each do |typeLabel, typeValue|
-        type = typeLabel
-        type_value = typeValue
-
-        if !(newLangObj.has_key?(language))
-          newLangObj[language] = {
-            type => type_value,
-            :style => get_style
-          }
+    style_hash each.do  |language, type|
+      type.each do |key, value|
+        if newLangObj.key?(language)
+          if newLangObj[language].key(:style)
+            newLangObj[language][:style] << style_name
+          else
+            newLangObj[langugage][:style] = [style_name]
+          end
+        else
+          newLangObj[language] = {:style => [style_name]}
+          binding.pry
         end
       end
-    end 
-  end 
-newLangObj
+    end
+  end
+  newLangObj
 end
