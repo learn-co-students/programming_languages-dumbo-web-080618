@@ -1,14 +1,20 @@
 def reformat_languages(languages)
   new_hash = {}
-  
-  languages.each do |paradigm, language|
-    language.each do |name, type|
+
+  languages[:oo].each do |name, type|
+    new_hash[name] = type
+    new_hash[name][:style] = [:oo]
+  end
+
+  languages[:functional].each do |name, type|
+    if name == :javascript
+      new_hash[name][:style] << :functional
+    else
       new_hash[name] = type
-      new_hash[name][:style] = [paradigm]
+      new_hash[name][:style] = [:functional]
     end
   end
 
-  new_hash[:javascript][:style] << :oo
   new_hash
 end
 
